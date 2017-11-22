@@ -94,4 +94,111 @@
     \[
     \theta_j := \theta_j - \alpha \frac{1}{m} \sum_i\big(h_\theta(x^{(i)}) - y^{(i)}\big) \cdot x_j^{(i)}
     \]
+**** Notes
+     I think this is equivalent to
+     \[
+     \theta^{(j+1)} = \theta^{(j)} - \alpha \frac{1}{m} (X^{\top}X\theta - X^{\top}y)
+     \]
+*** Feature Scaling
+    We can speed up gradient descent by having each of our input
+    values in roughly the same range. This is because $\theta$ will
+    descend quickly on small ranges and slowly on large ranges, and so
+    will oscillate inefficiently down to the optimum when the
+    variables are very uneven.
+    
+    The way to prevent this is to modify the ranges of our input
+    variables so that they are all roughly the same. Ideally:
 
+    \[
+    -1 \leq x_{(i)} \leq 1
+    \]
+
+    or
+
+    \[
+    -0.5 \leq x_{(i)} \leq 0.5
+    \]
+    
+    These aren't exact requirements; we're only trying to speed things
+    up. The goal is to get all input variables into roughly one of
+    these ranges, give or take a few.
+    
+    Two techniques to help with this are *feature scaling* and *mean
+    normalisation*. Feature scaling involves dividing the input values
+    by the range of the input variable, resulting in a new range of
+    just 1. Mean normalisation involves subtracting the average values
+    for an input variable from the values for that input variable
+    resulting in a new average value for the input variable of just
+    zero. To implement both of these techniques, adjust your input
+    values as shown:
+
+    \[
+    x_i := \frac{x_i - \mu_i}{s_i}
+    \]
+    
+    Where $\mu_i$ is the average of all the values for feature $(i)$
+    and $s_i$ is the range of values $(\max - \min)_i$, or $s_i$ is
+    the standard deviation.
+
+    Note that dividing by the range, or dividig by the standard
+    deviation give different results.
+
+    For example, if $x_i$ represents housing prices with a range of
+    100 to 2000 and a mean value of 1000, then:
+
+    \[
+    x_i := \frac{\text{price} - 1000}{1900}
+    \]
+*** Learning Rate
+    If $\alpha$ is too small: slow convergence. If it's too large, may
+    not decrease on every iteration and thus may not converge.
+*** Features and Polynomial Regression
+    We can improve our features and the form of our hypothesis
+    function in a couple different ways.
+
+    We can combine multiple features into one. For example, we can
+    combine $x_1$ and $x_2$ into a new feature $x_3$ by taking $x_1
+    \cdot x_2$.
+
+**** Polynomial Regression
+     We can change the curve of $h$ by making it a quadratic,cubic or
+     square root function (or any other form). For example, if our
+     hypothesis function is $h_\theta(x) = \theta_0 + \theta_1x_1$
+     then we can create addition features based on $x_1$, to get
+     $h_\theta(x) = \theta_0 + \theta_1x_1 + \theta_2x_1^2$ etc.
+     
+     So we have created new features $x_2 = x_1^2$ (or $x_3 = x_1^3$).
+     
+** Computing Parameters Analytically
+
+*** Normal Equation
+    We will minimise $J$ by explicitly taking its derivatives wrt the
+    $\theta_j$'s and setting them to zero. This allows us to find the
+    optimum theta without iteration.
+
+    \[
+    \theta = (X^\top X)^{-1}X^\top y
+    \]
+    
+    | Gradient Descent             | Normal Equation                                              |
+    |------------------------------+--------------------------------------------------------------|
+    | Need to choose alpha         | No need to choose alpha                                      |
+    | Needs many iterations        | No need to iterate                                           |
+    | $(\mathcal{O}(kn^2)$         | $\mathcal{O}(n^3)$, need to calculate inverse of $X^{\top}X$ |
+    | Works well when $n$ is large | Slow if $n$ is very large                                    |
+
+    With the normal equation, computing the inversion has complexity
+    $\mathcal{O}(n^3)$. So if we have a very large number of features,
+    the normal equation will be slow. In practice, when $n$ exceeds
+    10000 it might be a good time to go from a normal solution to an
+    iterative process.
+    
+*** Normal Equation Noninvertibility
+    When implementing the normal equation in octave we want to use the
+    =pinv= function rather than =inv=. The =pinv= function will give
+    you a value of $\theta$ even if $X^\top X$ is not invertible.
+
+    Common causes might be having:
+    - Linearly dependant features
+    - Too many features ($m \leq n$). In this case, delete some
+      features or use "regularisation".
