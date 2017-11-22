@@ -1,5 +1,6 @@
-#+TITLE: MACHINE LEARNING BY STANFORD UNIVERSITY
+#+TITLE: MACHINE LEARNING BY STANFORD UNIVERSITY (COURSERA)
 #+AUTHOR: MARTIN TANG
+#+LATEX_HEADER: \usepackage{amsmath}
 
 * Week 1
 ** Intro
@@ -37,12 +38,58 @@
 
     To describe the supervised learning problem more formally, our
     goal is, given a training set, to learn a function $h: X
-    \rightarrow Y$ so that $h$ (hypothesis) is a good predictor for
-    the corresponding value of y.
+    \rightarrow Y$ so
+    that $h$ (hypothesis) is a good predictor for the corresponding value of y.
 *** Cost Function
     We can measure the accuracy of our hypothesis function by using a
     cost function. This takes an average difference of all the results of
     the hypothesis with inputs from $x$'s and the actual $y$'s
-#+BEGIN_LaTeX
-J(\theta_0, \theta_1) = \frac{1}{2m}\sum_{i=1}^m\big(h_\theta(x_i) - y_i\big)^2
-#+END_LaTeX
+
+    \[
+    J(\mathbf{\theta}) = \frac{1}{2m}\sum_{i=1}^m\big(h_\theta(x_i) - y_i\big)^2
+    \]
+
+    \[
+    J(\mathbf{\theta}) = \frac{1}{2m}\big(\mathbf{h}_\theta(x) - \mathbf{y}\big)^2
+    \]
+
+** Parameter Learning
+*** Gradient Descent
+    Trying to minimise $J(\mathbf{\theta})$, so we use gradient descent:
+
+    \[
+    \mathbf{\theta}^{(j+1)} = \mathbf{\theta}^{(j)} - \alpha \frac{\partial}{\partial\theta} J(\mathbf{\theta^{(j)}})
+    \]
+    
+    with $\alpha$ being our learning rate.
+*** Gradient Descent for Linear Regression
+    When specifically applied to the case of linear regression, we can 
+    modify the equation to be:
+
+    \[
+    \mathbf{\theta}^{(j+1)} = \mathbf{\theta}^{(j)} - \frac{\alpha}{m} \big(\mathbf{h}_{\theta^{(j)}}(x) - \mathbf{y}\big) \frac{\partial}{\partial\theta} h_{\theta^{(j)}}(x)
+    \]
+    
+* Week 2
+** Multivariate Linear Regression
+*** Multiple Features
+    We now introduce notation for equations where we can have any number of
+    input variables. (This is kind of backtracking but I'm gonna follow the course).
+    
+    - $x_j^{(i)}$ = value of feature $j$ in the $i^{\text{th}}$ training example
+    - $x^{(i)}$ = the input (features) of the $i^{\text{th}}$ training example
+    - $m$ = the number of training examples
+    - $n$ = the number of features
+      
+    The multivariate form of the hypothesis function is:
+    \[
+    h_\theta(x) = \theta_0 + \theta_1x_1 + ... + \theta_nx_n
+    \]
+    
+**** Notes
+    $\hat{y} = X\theta$ where $X$ is $m \times n$, $\theta$ is $n \times 1$, $y$ is $m \times 1$.
+*** Gradient Descent for Multiple Variables    
+    \[
+    \theta_j := \theta_j - \alpha \frac{1}{m} \sum_i\big(h_\theta(x^{(i)}) - y^{(i)}\big) \cdot x_j^{(i)}
+    \]
+
