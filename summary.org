@@ -5,21 +5,22 @@
 * Week 1
 ** Intro
 *** Supervised Learning
-    In supervised learning, we are given a data set and already know what
-    our correct output should look like, having the idea that there is a
-    relationship between the input and the output.
+    In supervised learning, we are given a data set and already know
+    what our correct output should look like, having the idea that
+    there is a relationship between the input and the output.
 
     Supervised learning problems are categorized into "regression" and
-    "classification" problems. In a regression problem, we are trying to
-    predict results within a continuous output, meaning that we are trying
-    to map input variables to some continuous function. In a
-    classification problem, we are instead trying to predict results in a
-    discrete output. In other words, we are trying to map input variables
-    into discrete categories.
+    "classification" problems. In a regression problem, we are trying
+    to predict results within a continuous output, meaning that we are
+    trying to map input variables to some continuous function. In a
+    classification problem, we are instead trying to predict results
+    in a discrete output. In other words, we are trying to map input
+    variables into discrete categories.
 *** Unsupervised Learning
-    Unsupervised learning allows us to approach problems with little or no
-    idea what our results should look like. We can derive structure from
-    data where we don't necessarily know the effect of the variables.
+    Unsupervised learning allows us to approach problems with little
+    or no idea what our results should look like. We can derive
+    structure from data where we don't necessarily know the effect of
+    the variables.
 
     We can derive this structure by clustering the data based on
     relationships among the variables in the data.
@@ -32,18 +33,18 @@
     and $y^{(i)}$ to denote the "output" or target variable that we
     are trying to predict. A pair $(x^{(i)}, y^{(i)})$ is called a
     training example, and the dataset we'll be using to learn - a list
-    of $m$ training examples (x^{(i)}, y^{(i)}); i=1,...,m - is
-    called a training set. We will also use $X$ to denote the space of
-    input variables and $Y$ to denote the space of output variables.
+    of $m$ training examples $(x^{(i)}, y^{(i)}); i=1,...,m$ - is called
+    a training set. We will also use $X$ to denote the space of input
+    variables and $Y$ to denote the space of output variables.
 
     To describe the supervised learning problem more formally, our
     goal is, given a training set, to learn a function $h: X
-    \rightarrow Y$ so
-    that $h$ (hypothesis) is a good predictor for the corresponding value of y.
+    \rightarrow Y$ so that $h$ (hypothesis) is a good predictor for
+    the corresponding value of y.
 *** Cost Function
     We can measure the accuracy of our hypothesis function by using a
-    cost function. This takes an average difference of all the results of
-    the hypothesis with inputs from $x$'s and the actual $y$'s
+    cost function. This takes an average difference of all the results
+    of the hypothesis with inputs from $x$'s and the actual $y$'s
 
     \[
     J(\mathbf{\theta}) = \frac{1}{2m}\sum_{i=1}^m\big(h_\theta(x_i) - y_i\big)^2
@@ -73,8 +74,9 @@
 * Week 2
 ** Multivariate Linear Regression
 *** Multiple Features
-    We now introduce notation for equations where we can have any number of
-    input variables. (This is kind of backtracking but I'm gonna follow the course).
+    We now introduce notation for equations where we can have any
+    number of input variables. (This is kind of backtracking but I'm
+    gonna follow the course).
     
     - $x_j^{(i)}$ = value of feature $j$ in the $i^{\text{th}}$ training example
     - $x^{(i)}$ = the input (features) of the $i^{\text{th}}$ training example
