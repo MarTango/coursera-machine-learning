@@ -285,10 +285,42 @@
 
     A vectorised implementation is:
 
-    $h = g(X\theta)$
-
-    $J(\theta) = \frac{1}{m} \cdot \big( -y ^ {\top} \log(h) - (1 - y) ^ {\top} \log(1 - h)\big)$
+    \[
+    h = g(X\theta)$
+    \]
+    \[
+    J(\theta) = \frac{1}{m} \cdot \big( -y ^ {\top} \log(h) - (1 - y) ^ {\top} \log(1 - h)\big)
+    \]
 
     And gradient descent becomes:
 
-    $\theta^{(i+1)} = \theta^{(i)} - \frac{a}{m} X ^ {\top} (g(X\theta^{(i)}) - y)$
+    \[
+    \theta^{(i+1)} = \theta^{(i)} - \frac{a}{m} X ^ {\top} (g(X\theta^{(i)}) - y)
+    \]
+
+*** Advanced Optimisation
+    'Conjugate Gradient', 'BFGS' and 'L-BFGS' are better, faster ways
+    to optimise $\theta$ that can be used instead of gradient
+    descent. Don't write these more sophisticated algorithms yourself
+    but use the libraries instead.
+
+    We first need to provide a function that evaluates the following
+    functions for a given input value $\theta$:
+
+    $J(\theta)$
+
+    $\frac{\partial}{\partial\theta_j}J(\theta)$
+
+    If we write a function that returns [J, gradient], we can use
+    octave's =fminunc()= optimisation algorithm along with
+    =optimset()= that creates an object containing the options we want
+    to send to =fminunc()=.
+    #+BEGIN_SRC octave :export code
+      options = optimset('GradObj', 'on', 'MaxIter', 100);
+      initialTheta = zeros(2, 1);
+      [optTheta, functionVal, exitFlag] = fminunc(@costFunction, initialTheta, options);
+    #+END_SRC
+
+    We give to the function =fminunc= our cost function, our initial
+    vector of theta values, and the "options" object that we created
+    beforehand.
