@@ -335,3 +335,10 @@
     \[ h_\theta^{(i)}(x) = P(y = i | x; \theta) \]
     
     Our prediction is $\max_i(h_\theta^{(i)}(x))$
+** Solving Overfitting
+*** The Problem of Overfitting
+**** TL;DR
+     Adding more features seems to give us better fits, but adding too
+     many can result in a hypothesis function that fits the available
+     data well but does not generalise well to predict new data.
+*** Cost Function
