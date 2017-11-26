@@ -228,9 +228,6 @@
    h_\theta(x) = g(\theta^\top x)
    \]
    \[
-   z = \theta^\top x
-   \]
-   \[
    g(z) = \frac{1}{1+e^{-z}}
    \]
 
@@ -324,3 +321,17 @@
     We give to the function =fminunc= our cost function, our initial
     vector of theta values, and the "options" object that we created
     beforehand.
+    
+** Multiclass Classification
+   Now we approach the classification of data when we have more than
+   two categories. Instead of $y = {0, 1}$ we will exapdn our
+   definition so that $y = {0, 1, ..., n}$.
+
+*** One-vs-all
+    We divide our problem into n+1 binary classification problems; in
+    each one, we predict the probability that $y$ is a member of one
+    of our classes.
+
+    \[ h_\theta^{(i)}(x) = P(y = i | x; \theta) \]
+    
+    Our prediction is $\max_i(h_\theta^{(i)}(x))$
