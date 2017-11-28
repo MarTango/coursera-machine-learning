@@ -371,3 +371,44 @@
 
     If $\lambda$ is chosen to be too large, it may smooth out the
     function too much and cause underfitting.
+*** Regularised Linear Regression
+    We can apply regularisation too both linear regression and
+    logistic regression.
+**** Gradient Descent
+
+     We will modify our gradient descent function to separate out
+     $\theta_0$ from the rest of the parameters because we do not want
+     to penalise $\theta_0$.
+
+     $\theta_0 = \theta_0 - \alpha \frac{1}{m}\sum_{i=1}^m(h_\theta(x&{(i)}) - y^{(i)})x_0^{(i)}$
+
+     $\theta_j = \theta_j - \alpha \Bigg[\Bigg( \sum_{i=1}^m(h_\theta(x&{(i)}) - y^{(i)})x_j^{(i)}\Bigg) + \frac{\lambda}{m}\theta_j\Bigg]$
+     
+     The term $\frac{\lambda}{m}\theta_j$ performs our
+     regularisation. With some manipulation our update rule can be
+     represented as:
+
+     $\theta_j = \theta_j(1-\alpha\frac{\lambda}{m}) - \alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)}) - y^{(i)})x_j^{(i)}$
+**** Normal Equation
+     
+     To add in regularisation, the equation is the same as our
+     original, except that we add another term inside the parentheses:
+     
+     $\theta = (X^{\top}X + \lambda\cdot L)^{-1}X^\top y$
+     
+     where $L = \begin{bmatrix}
+                0 & & & & \\
+                  & 1 & & & \\
+                  & & 1 & & \\
+                  & & & \ddots & \\
+                  & & & & 1 \\
+                \end{bmatrix}$
+
+     L is a matrix with 0 at the top left and 1's down the diagonal,
+     with 0's everywhere else. It should have dimension
+     $(n+1)\times(n+1)$. Intuitively, this is the identity matrix
+     multiplied with a single real number $\lambda$.
+
+     Recall that if $m < n$, then $X^\top X$ is
+     non-invertible. However, when we add the term $\lambda L$, then
+     $X^\top X + \lambda L$ becomes invertible.
