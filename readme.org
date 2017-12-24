@@ -342,3 +342,32 @@
      many can result in a hypothesis function that fits the available
      data well but does not generalise well to predict new data.
 *** Cost Function
+    If we have overfitting from our hypoothesis function, we can
+    reduce the weight that some of the terms in our function carry by
+    increasing their cost.  Say we wanted to make $\theta_0 +
+    \theta_1x \theta_2x^2 + \theta_3x^3 + \theta_4x^4$ more quadratic.
+    We'll want to eliminate the influence of $\theta_3x^3$ and
+    $\theta_4x^4$. Without actually getting rid of these features or
+    changing the form of our hypothesis, we can instead modify our
+    cost function:
+
+    $\min_\theta\frac{1}{2m}\sum_{i=1}^m \big(h_\theta(x^{(i)}) -
+    y^{(i)} \big)^2 + 1000\theta_3^2 + 1000\theta_4^2$
+    
+    We've added two extram terms that inflate the cost of $\theta_3$
+    and $\theta_4$. Now, in oorder for the cost function to get cclose
+    to zero, we will have to reduce the values of $\theta_3$ and
+    $\theta_4$ to near zero. This will in turn greatly reduce the
+    values of $\theta_3x^3$ and $\theta_4x^4$ in our hypothesis
+    function.
+
+    We could also regularise all of our theta parameters in a single
+    summation as:
+
+    $\min_\theta\frac{1}{2m}\sum_{i=1}^{m}\big(h_\theta(x^{(i)}) - y^{(i)}\big)^2 + \lambda\sum_{j=1}^n\theta_j^2$
+    
+    $\lambda$ is the *regularisation parameter*. It determines how
+    much the costs of our theta parameters are inflated.
+
+    If $\lambda$ is chosen to be too large, it may smooth out the
+    function too much and cause underfitting.
