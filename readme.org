@@ -354,8 +354,8 @@
     $\min_\theta\frac{1}{2m}\sum_{i=1}^m \big(h_\theta(x^{(i)}) -
     y^{(i)} \big)^2 + 1000\theta_3^2 + 1000\theta_4^2$
     
-    We've added two extram terms that inflate the cost of $\theta_3$
-    and $\theta_4$. Now, in oorder for the cost function to get cclose
+    We've added two extra terms that inflate the cost of $\theta_3$
+    and $\theta_4$. Now, in order for the cost function to get cclose
     to zero, we will have to reduce the values of $\theta_3$ and
     $\theta_4$ to near zero. This will in turn greatly reduce the
     values of $\theta_3x^3$ and $\theta_4x^4$ in our hypothesis
@@ -412,3 +412,22 @@
      Recall that if $m < n$, then $X^\top X$ is
      non-invertible. However, when we add the term $\lambda L$, then
      $X^\top X + \lambda L$ becomes invertible.
+*** Regularised Logistic Regression
+**** Cost Function 
+     Recall:
+     
+     $J(\theta) = - \frac{1}{m}\sum_{i=1}^m [y^{(i)} \log (h_\theta(x^{(i)})) + (1 - y^{(i)})\log(1 - h_\theta(x^{(i)}))]$
+     
+     We can regularise this equation by adding to the end:
+     
+     $+ \frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2$
+     
+     This sum means to explicitly exclude the bias term
+     $theta_0$. Thus, when computing the equation, we should
+     continuously update the two following equations:
+
+     $\theta_0 := \theta_0 - \alpha \frac{1}{m} \sum_{i=1}^m ( h_\theta(x^{(i)}) - y^{(i)})x_0^{(i)}$
+     
+     $\theta_j := \theta_j - \alpha [ \frac{1}{m} \sum_{i=1}^m (
+     h_\theta(x^{(i)}) - y^{(i)})x_j^{(i)} +
+     \frac{\lambda\}{m}\theta_j]$
